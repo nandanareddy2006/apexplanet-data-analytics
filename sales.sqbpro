@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2467"/><column_width id="4" width="0"/></tab_structure><tab_browse><table title="." custom_title="0" dock_id="4" table="0,0:"/><dock_state state="000000ff00000000fd00000001000000020000043c000002b4fc0100000002fb000000160064006f0063006b00420072006f007700730065003101000000000000043c0000000000000000fb000000160064006f0063006b00420072006f00770073006500340100000000ffffffff0000011800ffffff0000043c0000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">SELECT * FROM sales_data;</sql><sql name="SQL 2">SELECT * FROM sales_data
+LIMIT 10;</sql><sql name="SQL 3">SELECT &quot;Order ID&quot;, Category, Sales
+FROM sales_data;</sql><sql name="SQL 4">SELECT *
+FROM sales_data
+WHERE Sales &gt; 1000;</sql><sql name="SQL 5">SELECT Category,
+       SUM(Sales) AS Total_Sales
+FROM sales_data
+GROUP BY Category;</sql><sql name="SQL 6">SELECT *
+FROM sales_data
+ORDER BY Sales DESC;</sql><sql name="SQL 7">SELECT Category,
+       SUM(Sales) AS Total_Sales
+FROM sales_data
+GROUP BY Category
+HAVING SUM(Sales) &gt; 50000;</sql><sql name="SQL 8">SELECT
+    COUNT(*) AS Total_Orders,
+    SUM(Sales) AS Total_Sales,
+    AVG(Sales) AS Average_Sales,
+    MAX(Sales) AS Highest_Sale,
+    MIN(Sales) AS Lowest_Sale
+FROM sales_data;</sql><sql name="SQL 9">PRAGMA table_info(sales_data);</sql><sql name="SQL 10">SELECT Sales
+FROM sales_data
+LIMIT 10;</sql><sql name="SQL 11">SELECT MAX(Sales), MIN(Sales)
+FROM sales_data;</sql><sql name="SQL 12">DROP VIEW High_Sales;</sql><sql name="SQL 13">CREATE VIEW High_Sales AS
+SELECT *
+FROM sales_data
+WHERE Sales &gt; 300;</sql><sql name="SQL 14">SELECT * FROM High_Sales;</sql><sql name="SQL 15*">CREATE TABLE category_info (
+    Category TEXT PRIMARY KEY,
+    Department TEXT
+);</sql><sql name="SQL 16*">INSERT INTO category_info VALUES
+('Furniture', 'Home'),
+('Office Supplies', 'Office'),
+('Technology', 'Electronics');</sql><sql name="SQL 17*">SELECT * FROM category_info;</sql><sql name="SQL 18*">SELECT
+    s.Category,
+    c.Department,
+    s.Sales
+FROM sales_data s
+INNER JOIN category_info c
+ON s.Category = c.Category
+LIMIT 10;</sql><sql name="SQL 19*">SELECT
+    s.Category,
+    c.Department,
+    s.Sales
+FROM sales_data s
+LEFT JOIN category_info c
+ON s.Category = c.Category
+LIMIT 10;</sql><sql name="SQL 20*">WITH CategorySales AS (
+    SELECT
+        Category,
+        SUM(Sales) AS TotalSales
+    FROM sales_data
+    GROUP BY Category
+)
+SELECT *
+FROM CategorySales;</sql><sql name="SQL 21*">SELECT
+    Category,
+    Sales,
+    ROW_NUMBER() OVER(
+        PARTITION BY Category
+        ORDER BY Sales DESC
+    ) AS Row_Num
+FROM sales_data;</sql><sql name="SQL 22*">SELECT
+    Category,
+    Sales,
+    RANK() OVER(
+        PARTITION BY Category
+        ORDER BY Sales DESC
+    ) AS Sales_Rank
+FROM sales_data;</sql><sql name="SQL 23*">SELECT
+    &quot;Order Date&quot;,
+    Sales,
+    LAG(Sales) OVER(
+        ORDER BY &quot;Order Date&quot;
+    ) AS Previous_Sales
+FROM sales_data;</sql><sql name="SQL 24*">SELECT
+    &quot;Order Date&quot;,
+    Sales,
+    LEAD(Sales) OVER(
+        ORDER BY &quot;Order Date&quot;
+    ) AS Next_Sales
+FROM sales_data;</sql><current_tab id="23"/></tab_sql></sqlb_project>
